@@ -1,102 +1,77 @@
-Repo Template
+Demo BART Survival Analysis Code for _Ross et al. 2023, Evaluating the impact of a street outreach intervention on participant involvement in gun violence, PNAS_
 ================
-**Repo Manager:** Marisa Ross <br />
+**Repo Manager:** Marisa Ross & Erin M. Ochoa <br />
 **Last updated:** September 26, 2023
 
 ## Overview
 
-This repo is a template that is used to create new repos on the N3
-GitHub org. It includes a .gitignore file that should prevent data files
-and other unnecessary files from being pushed to a repo, a README
-template in both raw Markdown and R Markdown formats, and other
-configuration files for virtual environments and GitHub Actions
-workflows.
-
-**How to use this repo template:**
-
-1.  Click the `Use this template` button above. This will create a new
-    repo with the contents of this one. You can find more information
-    about repo templates
-    [here](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template).
-
-2.  In this new repo, if you **are not** using R delete the R Markdown
-    template. Then, ***edit the README*** to add the appropriate title,
-    Repo Manager, and other content. **DO NOT add code to your repo if
-    you have not first removed this template text and added an adequate
-    explanation of your project to the README.** The R Markdown README
-    will automatically put the current date in
-    `full_month_name day, year` format when knitted. If you are not
-    using R, make sure to update the date as you update the repo.
-
-3.  If you are creating a repo that is only a single R Markdown document
-    without any other scripts or documents/reports, you can omit the
-    “Documents and Reports” and “Table of Contents” sections and include
-    your content at the end of this README.
-
-This Overview section should be used to give a brief abstract of your
-project.
-
-## Documents and Reports
-
-If you have any important documents or reports you want people to view,
-make sure to put them here.
-
-Use the following format:
-
--   ***[Title of Document 1](path/to/document.pdf)***
--   ***[Title of Document 2:](path/to/document.pdf)*** *a short
-    description of this document (if necessary)*
+This repo contains demonstration code (in R) for using Bayesian Additive Regression Trees (BART) along with Survival Analysis to 
+estimate the effect of outreach services on *victimization* and/or *arrest for a violent offense* among participants. A version
+of this code base was used to estimate survival probabilities for victimization and arrest for a violent offense for participants
+in Chicago CRED. Analyses and methodologies are presented in *Ross et al. 2023, Proceedings of the National Academies of Sciences*. 
 
 ## Methodology
 
-Briefly describe the most essential parts of your methodology, making
-sure to include the names of datasets that were used and a link or
-reference to any external datasets. Give an in-depth description of any
-code or scripts you need to run the project, including the order they
-should be run in and any unusual dependencies, quirks, or features you
-think others should know about to reproduce your project.
+The methodology has two parts:
+
+- Generate a demonstration dataset, randomly assigning participants and balancing the comparison sample on covariates of interest
+- A BART survival framework for analyzing the survival response, that is, the time to victimization or arrest for a violent offense.
+
+
+## Data from the original paper
+
+Due to the highly-sensitive nature of gunshot victimization, arrest, and street outreach program data, original data from paper cannot
+be provided here. Instead, this repo contains code for generating a demo dataset with the same variables and balancing methods used in
+the original paper. 
+
+## BART Survival Analysis
+
+The survival models require much in the way of computing resources---processing power, memory, and drive space.  Furthermore, 
+each model requires a number of specifications (organization, status type, etc.).  Because of these needs, we recommend that the survival 
+framework be restructured to run through a shell script with parameters specified in a configuration file when using real, large datasets. 
+The shell script should support running multiple organizations and multiple survival types from a single configuration file, with the rest 
+of the specifications fixed.  If multiple organizations and/or survival types are specified, the script will run the models in succession.
+
+For each model, full and abbreviated (with input dataset, parameters, mean survival probabilities, and ggplot object), analysis results are
+saved in RDS format, along with a plot (PDF) of the survival curves.
+
+
+##### R Framework
+
+- `src/run_bart_demo.R`: This script loads the `src/extra_demo_functions.R` script (see below for details), calls for building and validating the
+  model options, and creates output directories. It ultimately carries out the analysis and saves the results (both full and abbreviated).
+
+- `src/prepare_demo_environment.R`: This script calls a number of other R modules to load libraries and define functions. 
+
+  - `src/packages.R`: This script loads the libraries necessary for the framework
+  - Options for building models with `build_demo_opt()` function:
+        - `organization`: Space-separated list of organization names
+        - `status_type`: Space-separated list of survival types
+        - `geo_restrict`: Boolean; defines whether the pool of control units should be limited to those with an arrest within the geographic areast that overlap treatment community areas 
+        - `cg_size`: Desired size of control group 
+        - `treatment_variable`: Name of the treatment variable 
+        - `seed`: Used to set the seed for selecting the control group, assigning their start dates, and running the BART survival analysis
+  
 
 ## Table of Contents
+  - [src/](src/)
+      - [extra_demo_functions.R](src/extra_demo_functions.R): Includes functions for setting up the R environment and building models
+      - [run_bart_demo.R](src/run_bart_demo.R): Generates sample and runs BART survival analysis by calling relevant functions
+      - [functions/](src/functions/): Directory containing the needed functions for BART survival analysis  
+  - [objects/](objects/)
+      - Currently empty; will hold figures etc
 
-A linked table of contents for all the files on the repo (you *do not*
-need to list the files included in the template here)
-
-Follow the format used below:
-
--   **[.github:](.github/)** *contains scripts and configs for GitHub
-    Actions workflows*
-    -   **[comment_ratio.py:](.github/comment_ratio.py)** *calculates
-        comment to code ratio for all python files*
-    -   **[diff_files.sh:](.github/diff_files.sh)** *calculates
-        differences between README in a repo and this template*
-    -   **[lint_python_files.sh:](.github/lint_python_files.sh)** *lints
-        all python files*
-    -   **[lint_r\_files.R:](.github/lint_r_files.R)** *lints all R
-        files*
-    -   **[var_scan.sh:](.github/var_scan.sh)** *scans all files for
-        unhelpful variable names*
-    -   **[workflows:](.github/workflows)** *contains configs for GitHub
-        Actions workflows*
-        -   **[check-var-names.yaml:](.github/workflows/check-var-names.yaml)**
-        -   **[comment-ratio.yaml:](.github/workflows/comment-ratio.yaml)**
-        -   **[diff-readme.yaml:](.github/workflows/diff-readme.yaml)**
-        -   **[lint-python.yaml:](.github/workflows/lint-python.yaml)**
-        -   **[lint-r.yaml:](.github/workflows/lint-r.yaml)**
-        -   **[pr-review-reminder.yaml:](.github/workflows/pr-review-reminder.yaml)**
-        -   **[update-actions.yaml:](.github/workflows/update-actions.yaml)**
--   **[.gitignore:](.gitignore)** *keeps specified files from being
-    tracked by `git`*
--   **[.Rbuildignore:](.Rbuildignore)** *keeps specified files from
-    being included in an R package*
--   **[.Rprofile:](.Rprofile)** *runs R commands on load of project*
--   **[r-project.Rproj:](r-project.Rproj)** *config file/shortcut to
-    load the R project for this repo*
--   **[README.md:](README.md)** *README Markdown file - describes your
-    project/repo*
--   **[README.Rmd:](README.Rmd)** *R Markdown file to generate README
-    file*
--   **[renv:](renv/)** *contains scripts and configs required for `renv`
 
 ## References
 
-No one likes plagiarizers, cite your work!
+1. M. C. Ross, E. O. Ochoa, & A. V. Papachristos. Evaluating the impact of a street outreach intervention on participant involvement in gun violence. *PNAS* (2023)
+2. J. L. Hill, Bayesian Nonparametric Modeling for Causal Inference. *Journal of Computational and Graphical Statistics* 20, 217–240 (2011)
+3. H. A. Chipman, E. I. George, R. E. McCulloch, BART: BAYESIAN ADDITIVE REGRESSION TREES. *The Annals of Applied Statistics* 4, 266–298
+4. D. P. Green, H. L. Kern, Modeling Heterogeneous Treatment Effects in Survey Experiments with Bayesian Additive Regression Trees. *Public Opinion Quarterly* 76, 491–511 (2012)
+5. R. A. Sparapani, B. R. Logan, R. E. McCulloch, P. W. Laud, Nonparametric survival analysis using Bayesian Additive Regression Trees (BART). *Statist. Med.* 35, 2741–2753 (2016)
+6. G. Wood, A. V. Papachristos, Reducing gunshot victimization in high-risk social networks through direct and spillover effects. *Nat Hum Behav* 3, 1164–1170 (2019)
+
+
+
+
+
