@@ -44,13 +44,14 @@ saved in RDS format, along with a plot (PDF) of the survival curves.
 - `src/prepare_demo_environment.R`: This script calls a number of other R modules to load libraries and define functions. 
 
   - `src/packages.R`: This script loads the libraries necessary for the framework
-  - Options for building models with `build_demo_opt()` function:
-        - `organization`: Space-separated list of organization names
-        - `status_type`: Space-separated list of survival types
-        - `geo_restrict`: Boolean; defines whether the pool of control units should be limited to those with an arrest within the geographic areast that overlap treatment community areas 
-        - `cg_size`: Desired size of control group 
-        - `treatment_variable`: Name of the treatment variable 
-        - `seed`: Used to set the seed for selecting the control group, assigning their start dates, and running the BART survival analysis
+
+- Options for building models with `build_demo_opt()` function:
+  - `organization`: Space-separated list of organization names
+  - `status_type`: Space-separated list of survival types
+  - `geo_restrict`: Boolean; defines whether the pool of control units should be limited to those with an arrest within the geographic areast that overlap treatment community areas
+  - `cg_size`: Desired size of control group
+  - `treatment_variable`: Name of the treatment variable
+  - `seed`: Used to set the seed for selecting the control group, assigning their start dates, and running the BART survival analysis
   
 
 ## Table of Contents
