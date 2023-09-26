@@ -1,7 +1,7 @@
 Repo Template
 ================
-**Repo Manager:** Adam Shelton <br />
-**Last updated:** November 29, 2021
+**Repo Manager:** Marisa Ross <br />
+**Last updated:** September 26, 2023
 
 ## Overview
 
@@ -11,14 +11,6 @@ and other unnecessary files from being pushed to a repo, a README
 template in both raw Markdown and R Markdown formats, and other
 configuration files for virtual environments and GitHub Actions
 workflows.
-
-**IMPORTANT:**
-
-Before creating a new repo, review the [Quantitative Workflow
-Documentation](https://github.com/n3-initiative/Quantitative-Data-Documentation/wiki/Quantitative-Data-Analysis-Workflow).
-It contains policies you ***must*** follow throughout the development
-cycle to maintain access, quality, and reproducibility of all projects.
-The documentation is updated regularly, so check it regularly!
 
 **How to use this repo template:**
 
@@ -104,9 +96,6 @@ Follow the format used below:
 -   **[README.Rmd:](README.Rmd)** *R Markdown file to generate README
     file*
 -   **[renv:](renv/)** *contains scripts and configs required for `renv`
-    (see [Quant Workflow
-    Docs](https://github.com/n3-initiative/Quantitative-Data-Documentation/wiki/Quantitative-Data-Analysis-Workflow)
-    for more info)*
 
 ## References
 
