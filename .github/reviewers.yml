@@ -1,0 +1,8 @@
+reviewers:
+  # The default reviewers
+  defaults:
+    - team:data-team # GitHub team
+
+options:
+  ignore_draft: true
+  enable_group_assignment: false

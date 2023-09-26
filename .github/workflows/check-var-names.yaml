@@ -1,0 +1,26 @@
+on: push
+
+name: Check variable names
+
+jobs:
+  check-var-names:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    defaults:
+      run:
+        shell: 'script -q -e -c "bash --noprofile --norc -eo pipefail {0}"'
+        # ag won't output if the following shell config isn't used
+        # this is due to the way it prints colored text to stdout
+        # this does not work locally with act
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install silversearcher-ag -y
+
+      - name: Check variable names
+        run: |
+          chmod u+x '.github/var_scan.sh'
+          bash '.github/var_scan.sh'

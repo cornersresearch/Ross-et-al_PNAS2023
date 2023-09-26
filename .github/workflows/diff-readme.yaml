@@ -1,0 +1,33 @@
+on: push
+
+name: Check README was changed
+
+jobs:
+  diff-readme:
+    if: github.repository != 'n3-initiative/repo-template'
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.ANDY_BOT_PAT }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.ANDY_BOT_PAT }}
+          path: this-repo
+
+      - name: Set `git` identity
+        run: |
+          git config --global user.email "93400629+andy-bot-3000@users.noreply.github.com"
+          git config --global user.name "andy-bot[bot]"
+
+      - name: Clone repo template
+        run: |
+          git clone "https://${{ secrets.ANDY_BOT_PAT }}:x-oauth-basic@github.com/n3-initiative/repo-template" repo-template/
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install dwdiff -y
+
+      - name: Diff README files
+        run: |
+          bash this-repo/.github/diff_files.sh

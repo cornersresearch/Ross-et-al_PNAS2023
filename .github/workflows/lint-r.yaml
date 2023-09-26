@@ -1,0 +1,16 @@
+on: push
+
+name: Lint project - R
+
+jobs:
+  lint-r:
+    runs-on: ubuntu-latest
+    container: us-docker.pkg.dev/n3-main/workflow/r-lintr
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Lint R files
+        run: |
+          Rscript '.github/lint_r_files.R'

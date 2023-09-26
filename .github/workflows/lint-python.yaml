@@ -1,0 +1,20 @@
+on: push
+
+name: Lint project - Python
+
+jobs:
+  lint-python:
+    runs-on: ubuntu-latest
+    container: python:3
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          pip install -U nbqa pylint
+
+      - name: Lint python code files
+        run: |
+          bash .github/lint_python_files.sh

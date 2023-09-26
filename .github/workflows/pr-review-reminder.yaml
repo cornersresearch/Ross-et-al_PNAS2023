@@ -1,0 +1,21 @@
+name: 'Pull request reviewer reminder'
+on:
+  schedule:
+    # Check reviews every weekday, 10:00 and 17:00
+    - cron: '0 10,17 * * 1-5'
+
+jobs:
+  pull-request-reviewer-reminder:
+    runs-on: ubuntu-latest
+    env:
+      DAYS_TURNAROUND: 7
+    steps:
+      - name: Convert interval to hours
+        run: echo "HOURS_TURNAROUND=$(( 24 * $DAYS_TURNAROUND ))" >> $GITHUB_ENV
+
+      - name: PR notification
+        uses: tommykw/pull-request-reviewer-reminder-action@v1
+        with:
+          github_token: ${{ secrets.ANDY_BOT_PAT }} # Required
+          reminder_message: "${{ env.DAYS_TURNAROUND }} days have passed since this review was requested. Please complete this review as soon as possible" # Required. Messages to send to reviewers on Github.
+          review_turnaround_hours: ${{ env.HOURS_TURNAROUND }} # Required. This is the deadline for reviews. If this time is exceeded, a reminder wil be send.

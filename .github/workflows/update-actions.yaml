@@ -1,0 +1,56 @@
+name: Update from `repo-template`
+on:
+  schedule:
+    - cron: '0 10 1,15 * *'
+
+jobs:
+  update-from-template:
+    if: github.repository != 'n3-initiative/repo-template'
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.ANDY_BOT_PAT }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.ANDY_BOT_PAT }}
+          fetch-depth: 0
+
+      - name: Set `git` identity
+        run: |
+          git config --global user.email "93400629+andy-bot-3000@users.noreply.github.com"
+          git config --global user.name "andy-bot[bot]"
+
+      - name: Merge changes from `repo-template`
+        run: |
+          git remote add -f repo-template "https://${{ secrets.ANDY_BOT_PAT }}:x-oauth-basic@github.com/n3-initiative/repo-template.git"
+          git remote -v # list all added remotes
+          git fetch --all
+          if [[ $(git ls-remote origin repo-template-updates) ]]; then
+            echo "Update branch found on remote, checking out..."
+            git checkout -t origin/repo-template-updates
+          else
+            echo "No update branch found on remote, creating..."
+            git checkout -b repo-template-updates
+          fi
+          git merge -X ours --allow-unrelated-histories repo-template/main
+          if [[ $(git diff main...repo-template-updates) ]]; then
+            echo "Changes found in repo-template, pushing to remote..."
+            echo "OPEN_PR=true" >> "$GITHUB_ENV"
+          else
+            echo "There are no changes on repo-template, exiting..."
+            echo "OPEN_PR=false" >> "$GITHUB_ENV"
+            exit 0
+          fi
+          git remote set-url origin "https://x-access-token:${{ secrets.ANDY_BOT_PAT }}@github.com/${{ github.repository }}"
+          git push --set-upstream origin repo-template-updates
+
+      - name: Create pull request
+        uses: vsoch/pull-request-action@master
+        if: env.OPEN_PR == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.ANDY_BOT_PAT }}
+          BRANCH_PREFIX: "repo-template"
+          PULL_REQUEST_FROM_BRANCH: "repo-template-updates"
+          PULL_REQUEST_TITLE: "Integrate changes from `repo-template`"
+          PASS_IF_EXISTS: TRUE
+          PULL_REQUEST_UPDATE: TRUE

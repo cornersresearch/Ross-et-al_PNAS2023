@@ -1,0 +1,22 @@
+on: push
+
+name: Check code to comment ratio
+
+jobs:
+  comment-ratio:
+    runs-on: ubuntu-latest
+    container: python:3
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          pip install pandas tabulate
+          apt update
+          apt install cloc -y
+
+      - name: Calculate comment to code ratio
+        run: |
+          python '.github/comment_ratio.py'
