@@ -65,7 +65,7 @@ saved in RDS format, along with a plot (PDF) of the survival curves.
 
 ## References
 
-1. M. C. Ross, E. O. Ochoa, & A. V. Papachristos. Evaluating the impact of a street outreach intervention on participant involvement in gun violence. *PNAS* (2023)
+1. M. C. Ross, E. M. Ochoa, & A. V. Papachristos. Evaluating the impact of a street outreach intervention on participant involvement in gun violence. *PNAS* (2023)
 2. J. L. Hill, Bayesian Nonparametric Modeling for Causal Inference. *Journal of Computational and Graphical Statistics* 20, 217–240 (2011)
 3. H. A. Chipman, E. I. George, R. E. McCulloch, BART: BAYESIAN ADDITIVE REGRESSION TREES. *The Annals of Applied Statistics* 4, 266–298
 4. D. P. Green, H. L. Kern, Modeling Heterogeneous Treatment Effects in Survey Experiments with Bayesian Additive Regression Trees. *Public Opinion Quarterly* 76, 491–511 (2012)
