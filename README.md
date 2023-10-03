@@ -58,7 +58,14 @@ saved in RDS format, along with a plot (PDF) of the survival curves.
   - [src/](src/)
       - [extra_demo_functions.R](src/extra_demo_functions.R): Includes functions for setting up the R environment and building models
       - [run_bart_demo.R](src/run_bart_demo.R): Generates sample and runs BART survival analysis by calling relevant functions
-      - [functions/](src/functions/): Directory containing the needed functions for BART survival analysis  
+      - [prepare_environment.R](src/prepare_environment.R): Calls in functions and packages for sample generation and BART survival analysis
+      - [import.R](src/import.R): Example script for importing and tidying real data
+      - [functions/](src/functions/): Directory containing the needed functions for BART survival analysis
+      - [shell-scripting/](src/shell-scripting)
+        - [compute_effect_estimates.Rmd](src/shell-scripting/compute_effect_estimates.Rmd): Generates estimates for survival probabilities and treatment effects at time increments of your choosing
+        - [config_script_template.config](src/shell-scripting/config_script_template.config): Example .config file for running BART survival analysis from the terminal
+        - [run_bart_surv.R](src/shell-scripting/run_bart_surv.R): Calls necessary R functions to run BART survival analysis
+        - [run_bart_surv.sh](src/shell-scripting/run_bart_surv.sh): Call necessary R scripts and functions to run BART survival analysis from terminal  
   - [objects/](objects/)
       - Currently empty; will hold figures etc
 
