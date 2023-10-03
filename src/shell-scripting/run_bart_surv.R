@@ -1,5 +1,5 @@
 # This script is intended to be run using a shell script (which must be located
-# at outreach_individual/src/shell-scripting/run_bart_surv.sh) that can loop
+# at Ross-et-al_PNAS2023/src/shell-scripting/run_bart_surv.sh) that can loop
 # through any combination of organizations and survival types. The parameters
 # should be set in a .config file, which is passed as an argument to the shell
 # script. For record-keeping purposes, USE A NEW CONFIG FILE EACH TIME.
@@ -13,12 +13,12 @@
 
 
 # The relative location depends on whether we are running this script from the
-# outreach_individual/outreach.Rproj project or from the shell script.
+# Ross-et-al_PNAS2023/r-project.Rproj project or from the shell script.
 wd <- getwd()
 
 
 # Note the script changes the working directory to that of the *shell script*
-# (that is, outreach_individual/src/shell-scripting). This means we need to go
+# (that is, Ross-et-al_PNAS2023/src/shell-scripting). This means we need to go
 # up one level to get to the prepare_environment.R file.
 source("../prepare_environment.R")
 

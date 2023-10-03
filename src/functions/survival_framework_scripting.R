@@ -234,7 +234,7 @@ build_plot <- function(results_table, main_params){
   # Builds and returns a plot of the survival curves.
   
   # Build the file name; first get the absolute path to the main
-  # outreach_individual directory; then paste the rest of it together.
+  # Ross-et-al_PNAS2023 directory; then paste the rest of it together.
   script_dir_trimmed <- get_main_path(main_params$script_directory)
   fname <- paste("figures/plot_surv",
                  main_params$organization,
