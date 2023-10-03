@@ -39,7 +39,7 @@ SCRIPT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 # This is the name of the configuration file with the model specifications.
 CONFIG_NAME=$1
 
-# Navigate to this script's directory (outreach_individual/src/shell-scripting)
+# Navigate to this script's directory (Ross-et-al_PNAS2023/src/shell-scripting)
 # as all the R scripts depend on being here.
 cd $(dirname "$0")
 
