@@ -2,10 +2,10 @@ prepare_demo_environment <- function(){
   message("\nPreparing environment...\n")
   
   #load in necessary packages
-  source("packages.R")
+  source("src/packages.R")
   
   #load in necessary functions
-  walk(list.files("functions/", full.names = TRUE), source)
+  walk(list.files("src/functions/", full.names = TRUE), source)
   
 }
 
@@ -32,7 +32,7 @@ build_demo_opt <- function(){
               treatment_variable = "tx",
               seed = as.integer(1),
               balance = "male black hispanic gang arrest victimization yob",
-              script_directory = ".",
+              script_directory = "src",
               config_name = "demo.config",
               datetime = Sys.time() %>% 
                 gsub("-", "", .) %>% 

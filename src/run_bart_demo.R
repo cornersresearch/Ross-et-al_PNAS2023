@@ -1,6 +1,12 @@
-# Load demo functions; assumes the present working directory is the project
-# directory.
-source("extra_demo_functions.R")
+# This script runs a demo of the analysis from start to finish. To run the demo,
+# open an Rstudio session by loading the r-proj.Rproj file, then select this
+# file from the Files pane and proceed line by line.
+
+
+# Load demo functions; assumes the present working directory is the directory in
+# which r-project.Rproj is located (achieved by loading this file from an
+# RStudio session of the r-proj.Rproj project file).
+source("src/extra_demo_functions.R")
 
 # Prepare environment by loading additional functions and libraries.
 prepare_demo_environment()
