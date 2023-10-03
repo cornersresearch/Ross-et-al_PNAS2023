@@ -1,7 +1,7 @@
 Demo BART Survival Analysis Code for _Ross et al. 2023, Evaluating the impact of a street outreach intervention on participant involvement in gun violence, PNAS_
 ================
 **Repo Manager:** Marisa Ross & Erin M. Ochoa <br />
-**Last updated:** September 26, 2023
+**Last updated:** October 3, 2023
 
 ## Overview
 
@@ -9,6 +9,7 @@ This repo contains demonstration code (in R) for using Bayesian Additive Regress
 estimate the effect of outreach services on *victimization* and/or *arrest for a violent offense* among participants. A version
 of this code base was used to estimate survival probabilities for victimization and arrest for a violent offense for participants
 in Chicago CRED. Analyses and methodologies are presented in *Ross et al. 2023, Proceedings of the National Academy of Sciences*. 
+All code in this repository is designed to run in either RStudio or shell. 
 
 ## Methodology
 
