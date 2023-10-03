@@ -8,7 +8,7 @@ Demo BART Survival Analysis Code for _Ross et al. 2023, Evaluating the impact of
 This repo contains demonstration code (in R) for using Bayesian Additive Regression Trees (BART) along with Survival Analysis to 
 estimate the effect of outreach services on *victimization* and/or *arrest for a violent offense* among participants. A version
 of this code base was used to estimate survival probabilities for victimization and arrest for a violent offense for participants
-in Chicago CRED. Analyses and methodologies are presented in *Ross et al. 2023, Proceedings of the National Academies of Sciences*. 
+in Chicago CRED. Analyses and methodologies are presented in *Ross et al. 2023, Proceedings of the National Academy of Sciences*. 
 
 ## Methodology
 
@@ -22,7 +22,7 @@ The methodology has two parts:
 
 Due to the highly-sensitive nature of gunshot victimization, arrest, and street outreach program data, original data from paper cannot
 be provided here. Instead, this repo contains code for generating a demo dataset with the same variables and balancing methods used in
-the original paper. 
+the original paper.
 
 ## BART Survival Analysis
 
@@ -38,17 +38,18 @@ saved in RDS format, along with a plot (PDF) of the survival curves.
 
 ##### R Framework
 
-- `src/run_bart_demo.R`: This script loads the `src/extra_demo_functions.R` script (see below for details), calls for building and validating the
-  model options, and creates output directories. It ultimately carries out the analysis and saves the results (both full and abbreviated).
+- `r-project.Rproj`: This is the project file for the demo. To run the demo, load this file with RStudio, which will initiate an RStudio session using the project file.  Then load the `src/run_bart_demo.R` script (see below for details) from within that RStudio session.
 
-- `src/prepare_demo_environment.R`: This script calls a number of other R modules to load libraries and define functions. 
+- `src/run_bart_demo.R`: This script loads the `src/extra_demo_functions.R` script (see below for details), calls for building and validating the model options, and creates output directories. It ultimately carries out the analysis and saves the results (both full and abbreviated).
 
-  - `src/packages.R`: This script loads the libraries necessary for the framework
+- `src/prepare_demo_environment.R`: This script calls a number of other R modules to load libraries and define functions.
+
+- `src/packages.R`: This script loads the libraries necessary for the framework.
 
 - Options for building models with `build_demo_opt()` function:
   - `organization`: Space-separated list of organization names
   - `status_type`: Space-separated list of survival types
-  - `geo_restrict`: Boolean; defines whether the pool of control units should be limited to those with an arrest within the geographic areast that overlap treatment community areas
+  - `geo_restrict`: Boolean; defines whether the pool of control units should be limited to those with an arrest within the geographic areas that overlap treatment community areas (not applicable for demo; should always be set to FALSE)
   - `cg_size`: Desired size of control group
   - `treatment_variable`: Name of the treatment variable
   - `seed`: Used to set the seed for selecting the control group, assigning their start dates, and running the BART survival analysis
@@ -60,14 +61,12 @@ saved in RDS format, along with a plot (PDF) of the survival curves.
       - [run_bart_demo.R](src/run_bart_demo.R): Generates sample and runs BART survival analysis by calling relevant functions
       - [prepare_environment.R](src/prepare_environment.R): Calls in functions and packages for sample generation and BART survival analysis
       - [import.R](src/import.R): Example script for importing and tidying real data
+      - [compute_effect_estimates.Rmd](src/compute_effect_estimates.Rmd): Generates estimates for survival probabilities and treatment effects at time increments of your choosing
       - [functions/](src/functions/): Directory containing the needed functions for BART survival analysis
-      - [shell-scripting/](src/shell-scripting)
-        - [compute_effect_estimates.Rmd](src/shell-scripting/compute_effect_estimates.Rmd): Generates estimates for survival probabilities and treatment effects at time increments of your choosing
+      - [shell-scripting/](src/shell-scripting/)
         - [config_script_template.config](src/shell-scripting/config_script_template.config): Example .config file for running BART survival analysis from the terminal
         - [run_bart_surv.R](src/shell-scripting/run_bart_surv.R): Calls necessary R functions to run BART survival analysis
-        - [run_bart_surv.sh](src/shell-scripting/run_bart_surv.sh): Call necessary R scripts and functions to run BART survival analysis from terminal  
-  - [objects/](objects/)
-      - Currently empty; will hold figures etc
+        - [run_bart_surv.sh](src/shell-scripting/run_bart_surv.sh): Call necessary R scripts and functions to run BART survival analysis from terminal
 
 
 ## References
@@ -78,8 +77,3 @@ saved in RDS format, along with a plot (PDF) of the survival curves.
 4. D. P. Green, H. L. Kern, Modeling Heterogeneous Treatment Effects in Survey Experiments with Bayesian Additive Regression Trees. *Public Opinion Quarterly* 76, 491–511 (2012)
 5. R. A. Sparapani, B. R. Logan, R. E. McCulloch, P. W. Laud, Nonparametric survival analysis using Bayesian Additive Regression Trees (BART). *Statist. Med.* 35, 2741–2753 (2016)
 6. G. Wood, A. V. Papachristos, Reducing gunshot victimization in high-risk social networks through direct and spillover effects. *Nat Hum Behav* 3, 1164–1170 (2019)
-
-
-
-
-
